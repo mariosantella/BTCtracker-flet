@@ -1,0 +1,5 @@
+Historic-Crypto
+flet
+pandas
+plotly
+kaleido

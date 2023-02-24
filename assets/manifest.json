@@ -1,0 +1,14 @@
+{
+    "name": "BTCtracker",
+    "short_name": "BTCtracker",
+    "description": "A simple price tracker for Bitcoin holdings.",
+    "icons": [
+      {
+        "src": "icon.png",
+        "sizes": "64x64",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#222",
+    "background_color": "#222"
+  }
