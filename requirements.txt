@@ -3,3 +3,4 @@ flet
 pandas
 plotly
 kaleido
+#numpy==1.22.4

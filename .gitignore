@@ -35,6 +35,9 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
+.dockerignore
+Dockerfile
+fly.toml
 
 # Unit test / coverage reports
 htmlcov/

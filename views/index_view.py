@@ -1,8 +1,6 @@
 import flet as ft
-from classes.get_wallet_balance import GetWalletBalance
 from classes.get_btc_hystorical_data import hysto
 from classes.get_btc_current_price import price
-import pandas as pd
 import plotly.express as px
 from flet.plotly_chart import PlotlyChart
 

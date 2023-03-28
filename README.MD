@@ -1,6 +1,8 @@
 # BTCTracker Flet Application
 
-BTCTracker Flet Application is a Python-based simple Bitcoin price tracker. It allows users to track the price of Bitcoin in Euros and Bitcoin, and displays this information on a graph that is optimized for smartphone devices. 
+BTCTracker Flet Application is a Python-based simple Bitcoin price tracker. It allows users to track the price of Bitcoin in Euros and Bitcoin, and displays this information on a graph that is optimized for smartphone devices. This release is optimized for smartphones.
+
+Demo (use your smartphone): https://btc-tracker.fly.dev/
 
 ## Features
 
