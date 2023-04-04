@@ -7,4 +7,3 @@ def get_price():
     data = response.json()
     return data["BTC"]["EUR"]
 
-price = get_price()

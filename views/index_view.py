@@ -1,9 +1,10 @@
 import flet as ft
 from classes.get_btc_hystorical_data import hysto
-from classes.get_btc_current_price import price
+from classes.get_btc_current_price import get_price
 import plotly.express as px
 from flet.plotly_chart import PlotlyChart
 
+price = get_price()
 
 def IndexView(page):
 
@@ -70,7 +71,7 @@ def IndexView(page):
         hysto.drop(columns=["balance"], inplace=True)
         hysto["balance"] = hysto["close"] * balances_sum
         btc_amount = balances_sum
-        eur_amount = price * btc_amount
+        eur_amount = get_price() * btc_amount
         eur_amount = str(round(eur_amount, 2))
         satoshi_amount = btc_amount * 100000000
         satoshi_amount = int(satoshi_amount)

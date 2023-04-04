@@ -2,7 +2,10 @@ import flet as ft
 import plotly.express as px
 from flet.plotly_chart import PlotlyChart
 from classes.get_btc_hystorical_data import hysto
-from classes.get_btc_current_price import price
+from classes.get_btc_current_price import get_price
+
+
+price = get_price()
 
 # Plotly chart
 figtrend = px.line(hysto, x="time", y="close", title='BTC Price in EUR - Latest 90 days')
@@ -24,8 +27,18 @@ figtrend.update_layout(
 )
 
 
-def TrendView(page):
+price_container = ft.Container(
+        content=ft.Text(str(get_price()) + "€", size=40)
+    )
 
+def refresh(self):
+    amount = get_price()
+    price_container.content.value = str(amount)+"€"
+    price_container.content.update()
+
+
+def TrendView(page):
+   
     content = ft.Column(
         [
             ft.Row(
@@ -36,13 +49,19 @@ def TrendView(page):
 
             ft.Row(
                 [
-                    ft.Text(str(price) + "€", size=40),
+                    price_container,
                 ]
             ),
 
             ft.Row(
                 [
                     PlotlyChart(figtrend, expand=True),
+                ]
+            ),
+            
+            ft.Row(
+                [
+                    ft.FilledButton("Refresh", icon="refresh", on_click=refresh),
                 ]
             ),
 
