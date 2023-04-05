@@ -31,7 +31,7 @@ price_container = ft.Container(
         content=ft.Text(str(get_price()) + "€", size=40)
     )
 
-def refresh(self):
+def refresh_btc(self):
     amount = get_price()
     price_container.content.value = str(amount)+"€"
     price_container.content.update()
@@ -61,7 +61,7 @@ def TrendView(page):
             
             ft.Row(
                 [
-                    ft.FilledButton("Refresh", icon="refresh", on_click=refresh),
+                    ft.FilledButton("Refresh", icon="refresh", on_click=refresh_btc),
                 ]
             ),
 
