@@ -1,13 +1,16 @@
 import flet as ft
-from classes.get_btc_hystorical_data import hysto
-from classes.get_btc_current_price import get_price
+from func.get_btc_hystorical_data import get_data
+from func.get_btc_current_price import get_price
 import plotly.express as px
 from flet.plotly_chart import PlotlyChart
+from flet_route import Params,Basket
+from user_controls.navbar import NavBar
+import pandas as pd
+def IndexView(page:ft.Page,params:Params,basket:Basket):
 
-price = get_price()
-
-def IndexView(page):
-
+    price = get_price()
+    hysto = get_data()
+    
     # get the balance from the client storage without crashing if is null
 
     if page.client_storage.get("balance") == None:
@@ -45,14 +48,19 @@ def IndexView(page):
         on_click=change_balance
     )
 
-    # using hysto to make a dark theme plotly chart
+     # using hysto to make a dark theme plotly chart
+    hysto['time'] = pd.to_datetime(hysto['time'])
+    #hysto = hysto.set_index('time')
     fig = px.line(hysto, x="time", y="balance", title='BTC Price in EUR')
     fig.update_layout(
         plot_bgcolor='rgb(30,30,30)',
         paper_bgcolor='rgb(30,30,30)',
-        font_color="white",
+        font=dict(
+        family="Arial",
+        color="white"
+        ),
         xaxis_title="Date",
-        yaxis_title="Price in EUR",
+        yaxis_title="EUR",
         title_font_size=20,
         title_font_color="white",
         legend_title_font_color="white",
@@ -61,11 +69,29 @@ def IndexView(page):
         yaxis_title_font_color="white",
         xaxis_tickfont_color="white",
         yaxis_tickfont_color="white",
+        xaxis_tickfont=dict(
+            family="Arial",
+            color="white",
+            size=18
+        ),
+        yaxis_tickfont=dict(
+            family="Arial",
+            color="white",
+            size=18
+        ),
+        yaxis_tickangle=-45,
+        xaxis_tickangle=-45,
         xaxis_tickformat='%d %b',
     )
 
-    balance_graph = PlotlyChart(fig, expand=True)
 
+    chart = PlotlyChart(fig, expand=True)
+
+
+    current_price_container = ft.Container(
+        content=ft.Text("EUR/BTC: " + str(price) + "€", size=20)
+    )
+    
     def refresh(self):
         balances_sum = float(page.client_storage.get("balance"))
         hysto.drop(columns=["balance"], inplace=True)
@@ -77,13 +103,16 @@ def IndexView(page):
         satoshi_amount = int(satoshi_amount)
         balance_container.content.value = str(eur_amount)+"€"
         balance_container.content.update()
+        price = get_price()
+        current_price_container.content.value = "EUR/BTC: " + str(price) + "€"
+        current_price_container.update()    
 
         # TODO: make the graph update
-      
 
-    content = ft.Column(
-        [
-
+    return ft.View( 
+        "/",
+        controls=[
+            NavBar(page),
             ft.Row(
                 [
                     ft.Text("Balance:", size=15),
@@ -96,16 +125,15 @@ def IndexView(page):
             ),
             ft.Row(
                 [
-                    balance_graph
+                    chart
                 ],
             ),
 
             ft.Row(
                 [
                     ft.FilledButton("Refresh", icon="refresh", on_click=refresh),
+                    current_price_container
                 ]
             ),
         ],
     )
-
-    return content

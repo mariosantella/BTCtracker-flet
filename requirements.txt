@@ -3,4 +3,5 @@ flet
 pandas
 plotly
 kaleido
+flet-route
 #numpy==1.22.4

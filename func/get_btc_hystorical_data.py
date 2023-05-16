@@ -34,4 +34,4 @@ def get_data():
     df = pandas.read_csv('data/btc_eur.csv')
     return df
 
-hysto = get_data()
+

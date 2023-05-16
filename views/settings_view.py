@@ -1,7 +1,9 @@
 import flet as ft
+from flet_route import Params,Basket
+from user_controls.navbar import NavBar
 
 
-def SettingsView(page):
+def SettingsView(page:ft.Page,params:Params,basket:Basket):
 
     #TODO - rework wallets balance with new APIs
     """
@@ -22,8 +24,10 @@ def SettingsView(page):
     balance_input = ft.TextField(label="Balance", hint_text="Enter your BTC balance here", width=400, value=page.client_storage.get("balance"))
     save_button = ft.TextButton(text="Save", on_click=save_balance)
 
-    content = ft.Column(
-        [
+    return ft.View(
+        "/settings/",
+        controls=[
+             NavBar(page),
              ft.Row(
                 [
                     ft.Text("Settings", size=25),
@@ -47,6 +51,3 @@ def SettingsView(page):
             ),
         ]
     )
-
-
-    return content
